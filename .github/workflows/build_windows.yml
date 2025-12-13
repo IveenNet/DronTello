@@ -11,10 +11,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Instalar Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5 
       with:
         python-version: '3.13'
 
@@ -25,11 +25,10 @@ jobs:
         pip install pyinstaller
 
     - name: Crear Ejecutable con PyInstaller
-      # Aquí generamos el .exe. Quitamos la consola (--noconsole) si quieres.
       run: pyinstaller --onefile --name=DronTello main.py
 
     - name: Subir el .exe como Artefacto
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: DronTello-Windows
         path: dist/DronTello.exe
