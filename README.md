@@ -8,12 +8,12 @@ Este proyecto implementa un controlador de vuelo completo para el dron **Ryze/DJ
 
 ## 🚀 Características Principales
 
-* [cite_start]**Transmisión de Vídeo en Tiempo Real:** Visualización del feed de la cámara del Tello con baja latencia[cite: 247, 461].
-* [cite_start]**Telemetría en Pantalla (HUD):** Monitorización en tiempo real del nivel de batería y modo de vuelo[cite: 202].
+* **Transmisión de Vídeo en Tiempo Real:** Visualización del feed de la cámara del Tello con baja latencia.
+* **Telemetría en Pantalla (HUD):** Monitorización en tiempo real del nivel de batería y modo de vuelo.
 * **Control de Vuelo Dual:**
     * *Modo Estándar:* Movimiento horizontal (adelante, atrás, izquierda, derecha).
     * *Modo Altitud/Rotación:* Control de altura y guiñada (yaw) para ajustes precisos.
-* [cite_start]**Acrobacias:** Ejecución de flips (volteretas) preprogramadas[cite: 116].
+* **Acrobacias:** Ejecución de flips (volteretas) preprogramadas.
 * **Arquitectura Modular:** Código organizado en clases independientes para facilitar la escalabilidad y el mantenimiento.
 
 ## 🛠️ Arquitectura del Proyecto
@@ -23,7 +23,7 @@ El código está estructurado siguiendo el principio de responsabilidad única (
 | Archivo | Responsabilidad |
 | :--- | :--- |
 | `main.py` | Punto de entrada. Orquesta el bucle principal. |
-| `drone_manager.py` | Wrapper de la API `djitellopy`. [cite_start]Maneja la conexión y comandos de hardware[cite: 5, 927]. |
+| `drone_manager.py` | Wrapper de la API `djitellopy`. Maneja la conexión y comandos de hardware. |
 | `input_handler.py` | Procesa eventos de teclado y define la lógica de control. |
 | `ui_manager.py` | Gestiona la ventana de OpenCV y dibuja la interfaz (HUD). |
 | `config.py` | Almacena constantes de configuración (velocidades, colores, etc.). |
@@ -37,9 +37,9 @@ El código está estructurado siguiendo el principio de responsabilidad única (
     ```
 
 2.  **Instalar dependencias:**
-    Se requiere Python 3.x y las siguientes librerías:
+    Asegúrate de tener Python 3.x instalado. Luego, ejecuta el siguiente comando para instalar automáticamente todas las librerías necesarias:
     ```bash
-    pip install djitellopy opencv-python
+    pip install -r requirements.txt
     ```
 
 3.  **Conexión:**
@@ -53,8 +53,8 @@ El sistema utiliza la librería OpenCV para capturar el teclado, por lo que **la
 ### Teclas Globales
 | Tecla | Acción | Descripción |
 | :---: | :--- | :--- |
-| **T** | Takeoff | [cite_start]Despegar el dron[cite: 5]. |
-| **L** | Land | [cite_start]Aterrizar suavemente[cite: 540]. |
+| **T** | Takeoff | Despegar el dron. |
+| **L** | Land | Aterrizar suavemente. |
 | **ESC** | Salir | Aterriza y cierra el programa. |
 | **Q** | **Cambiar Modo** | Alterna entre movimiento horizontal y vertical/rotación. |
 
@@ -68,8 +68,8 @@ El sistema utiliza la librería OpenCV para capturar el teclado, por lo que **la
 | **D** | Desplazar Derecha (Roll) | Girar Derecha (Yaw) |
 
 ### Acrobacias
-* [cite_start]**F**: Flip hacia adelante (Forward)[cite: 134].
-* [cite_start]**B**: Flip hacia atrás (Back)[cite: 128].
+* **F**: Flip hacia adelante (Forward).
+* **B**: Flip hacia atrás (Back).
 
 ## ⚠️ Advertencia de Seguridad
 
