@@ -1,0 +1,35 @@
+name: Crear Ejecutable Windows
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Instalar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.13'
+
+    - name: Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+
+    - name: Crear Ejecutable con PyInstaller
+      # Aquí generamos el .exe. Quitamos la consola (--noconsole) si quieres.
+      run: pyinstaller --onefile --name=DronTello main.py
+
+    - name: Subir el .exe como Artefacto
+      uses: actions/upload-artifact@v3
+      with:
+        name: DronTello-Windows
+        path: dist/DronTello.exe
