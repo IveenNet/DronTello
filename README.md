@@ -4,6 +4,10 @@
 
 Este proyecto implementa un controlador de vuelo completo para el dron **Ryze/DJI Tello**. A diferencia de scripts básicos, `DronTello` utiliza una arquitectura orientada a objetos (OOP) y principios SOLID para desacoplar la lógica de vuelo, la gestión de entrada (teclado) y la interfaz de usuario (HUD de vídeo).
 
+Puedes descargar la última versión compilada en la sección "Actions" o "Releases"
+
+![Build Status](https://github.com/IveenNet/DronTello/actions/workflows/build_windows.yml/badge.svg)
+
 ---
 
 ## 🚀 Características Principales
@@ -70,6 +74,20 @@ El sistema utiliza la librería OpenCV para capturar el teclado, por lo que **la
 ### Acrobacias
 * **F**: Flip hacia adelante (Forward).
 * **B**: Flip hacia atrás (Back).
+* **Z**: Flip hacia la izquierda (Left).
+* **X**: Flip hacia la derecha (Right).
+
+## 🧪 Auditoría y Pruebas (QA)
+
+Este proyecto incluye un sistema de aseguramiento de calidad para garantizar la estabilidad del vuelo sin poner en riesgo el hardware.
+
+### 1. Pruebas Unitarias (Simulación)
+El proyecto cuenta con tests automatizados utilizando `pytest` y `unittest.mock`. Estas pruebas verifican la lógica interna del código sin necesidad de conectar el dron.
+
+Para ejecutar la suite de pruebas:
+```bash
+pytest
+```
 
 ## ⚠️ Advertencia de Seguridad
 
