@@ -26,9 +26,12 @@ class InputHandler:
         if key_code == ord('q'): self.drone.toggle_mode()
         
         # --- Acrobacias (Flips) ---
-        #direction: l, r, f, b
+        # Documentación Tello API: 'l'=left, 'r'=right, 'f'=forward, 'b'=back
         if key_code == ord('f'): self.drone.flip("f") 
         if key_code == ord('b'): self.drone.flip("b")
+        # --- AÑADIR ESTO ---
+        if key_code == ord('z'): self.drone.flip("l")
+        if key_code == ord('x'): self.drone.flip("r") 
 
         # --- Movimiento ---
         speed = config.SPEED

@@ -23,6 +23,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install pyinstaller
+        pip install pyinstaller pytest
+
+    - name: Ejecutar Pruebas Unitarias
+      run: pytest
 
     - name: Crear Ejecutable con PyInstaller
       run: pyinstaller --onefile --name=DronTello main.py
