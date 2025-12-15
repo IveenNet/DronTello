@@ -12,26 +12,25 @@ class InputHandler:
 
     def process_key(self, key_code: int) -> bool:
         """Retorna False si se debe salir de la app (ESC)."""
-        
+
         # Reiniciar velocidades a 0 (Dead man switch)
         lr, fb, ud, yv = 0, 0, 0, 0
-        
+
         # --- Comandos de Sistema ---
         if key_code == 27:  # Tecla ESC
             return False
-        
+
         # --- Comandos Directos ---
         if key_code == ord('t'): self.drone.takeoff()
         if key_code == ord('l'): self.drone.land()
         if key_code == ord('q'): self.drone.toggle_mode()
-        
+
         # --- Acrobacias (Flips) ---
         # Documentación Tello API: 'l'=left, 'r'=right, 'f'=forward, 'b'=back
-        if key_code == ord('f'): self.drone.flip("f") 
+        if key_code == ord('f'): self.drone.flip("f")
         if key_code == ord('b'): self.drone.flip("b")
-        # --- AÑADIR ESTO ---
         if key_code == ord('z'): self.drone.flip("l")
-        if key_code == ord('x'): self.drone.flip("r") 
+        if key_code == ord('x'): self.drone.flip("r")
 
         # --- Movimiento ---
         speed = config.SPEED

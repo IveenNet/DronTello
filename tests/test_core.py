@@ -13,37 +13,15 @@ from input_handler import InputHandler
 
 # --- PRUEBAS PARA DRONE_MANAGER ---
 
-@patch('drone_manager.Tello')
-def test_audit_sequence_logic(MockTello):
-    """
-    Simula la coreografía exacta solicitada:
-    Takeoff -> Rotate 90 -> Flip L -> Flip R -> Land
-    """
-    # 1. Setup
+@patch('drone_manager.Tello')  # 1. Simulamos la clase Tello original
+def test_drone_initialization(MockTello):
+    """Prueba que el dron se inicializa correctamente."""
     manager = TelloDrone()
 
-    # --- CORRECCIÓN VITAL ---
-    # Simulamos que la batería está al 100%.
-    # Sin esto, get_battery() devuelve un objeto Mock y falla la comparación (Mock < 50)
-    manager.drone.get_battery.return_value = 100
-    # ------------------------
-
-    # 2. Simulación de ejecución
-    manager.takeoff()
-    manager.drone.rotate_clockwise(90)
-    manager.flip("l")
-    manager.flip("r")
-    manager.land()
-
-    # 3. VERIFICACIONES (Auditoría)
-    manager.drone.takeoff.assert_called_once()
-    manager.drone.rotate_clockwise.assert_called_with(90)
-
-    # Ahora sí pasará, porque al tener batería "100", el código ejecutó el flip
-    manager.drone.flip.assert_any_call("l")
-    manager.drone.flip.assert_any_call("r")
-
-    manager.drone.land.assert_called_once()
+    # Verificamos que se creó una instancia del Tello falso
+    assert manager.drone is not None
+    # Verificamos que el modo empieza en Horizontal (False)
+    assert manager.is_vertical_mode is False
 
 @patch('drone_manager.Tello')
 def test_toggle_mode(MockTello):
@@ -121,29 +99,34 @@ def test_audit_sequence_logic(MockTello):
     Simula la coreografía exacta solicitada:
     Takeoff -> Rotate 90 -> Flip L -> Flip R -> Land
     """
-    # Setup
+    # 1. Setup
     manager = TelloDrone()
-    mock_drone_instance = manager.drone # Accedemos al objeto mockeado interno
 
-    # Simulación de ejecución (lo que haríamos en el script real)
+    # --- CORRECCIÓN IMPORTANTE ---
+    # Simulamos que la batería está al 100%.
+    # Sin esto, get_battery() devuelve un objeto Mock y falla la comparación (Mock < 50)
+    manager.drone.get_battery.return_value = 100
+    # -----------------------------
+
+    # 2. Simulación de ejecución
     manager.takeoff()
-    mock_drone_instance.rotate_clockwise(90)
+    manager.drone.rotate_clockwise(90)
     manager.flip("l")
     manager.flip("r")
     manager.land()
 
-    # VERIFICACIONES (Auditoría)
-    # 1. ¿Se llamó a despegar?
+    # 3. VERIFICACIONES (Auditoría)
+
+    # ¿Se llamó a despegar?
     manager.drone.takeoff.assert_called()
 
-    # 2. ¿Se rotó 90 grados?
+    # ¿Se rotó 90 grados?
     manager.drone.rotate_clockwise.assert_called_with(90)
 
-    # 3. ¿Se hicieron los flips correctos?
-    # flip("l") llama internamente a la API con dirección "l"
-    # Nota: Como llamamos a flip dos veces, usamos 'any_call' para verificar que ambas ocurrieron
+    # ¿Se hicieron los flips correctos?
+    # Ahora sí pasará porque la batería es "100" y entra en el if
     manager.drone.flip.assert_any_call("l")
     manager.drone.flip.assert_any_call("r")
 
-    # 4. ¿Se aterrizó?
+    # ¿Se aterrizó?
     manager.drone.land.assert_called()

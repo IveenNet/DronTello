@@ -9,6 +9,7 @@ from ui_manager import UserInterface
 
 
 def main():
+
     # 1. Inicialización de clases
     my_drone = TelloDrone()
     input_mgr = InputHandler(my_drone)
@@ -21,6 +22,7 @@ def main():
     while running:
         # A. Obtener imagen
         frame = my_drone.get_frame()
+
         # Redimensionamos aquí o en UI para rendimiento
         frame = cv2.resize(frame, (960, 720))
 
@@ -33,13 +35,13 @@ def main():
         # D. Procesar lógica (si key es ESC, running será False)
         running = input_mgr.process_key(key)
 
-        # E. Enviar comandos físicos al dron (CRÍTICO: debe ser continuo)
+        # E. Enviar comandos físicos al dron
         my_drone.send_rc_command()
 
-        # --- F. AÑADIR ESTO ---
-        # Pausa de 10 milisegundos para no saturar la CPU ni la red
+        # Pausar de 10 milisegundos para no saturar la CPU ni la red
         time.sleep(0.01)
-    # Finalización limpia
+
+    # Finalización
     my_drone.land()
     my_drone.disconnect()
     ui_mgr.close()
