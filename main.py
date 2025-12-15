@@ -1,8 +1,12 @@
 # main.py
+import time
+
 import cv2
+
 from drone_manager import TelloDrone
 from input_handler import InputHandler
 from ui_manager import UserInterface
+
 
 def main():
     # 1. Inicialización de clases
@@ -22,7 +26,7 @@ def main():
 
         # B. Actualizar Interfaz
         ui_mgr.draw_hud(frame, my_drone.get_battery_level(), my_drone.is_vertical_mode)
-        
+
         # C. Mostrar y leer teclado
         key = ui_mgr.show(frame)
 
@@ -32,6 +36,9 @@ def main():
         # E. Enviar comandos físicos al dron (CRÍTICO: debe ser continuo)
         my_drone.send_rc_command()
 
+        # --- F. AÑADIR ESTO ---
+        # Pausa de 10 milisegundos para no saturar la CPU ni la red
+        time.sleep(0.01)
     # Finalización limpia
     my_drone.land()
     my_drone.disconnect()
